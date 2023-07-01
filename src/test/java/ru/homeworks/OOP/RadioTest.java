@@ -17,6 +17,17 @@ public class RadioTest {
     }
 
     @Test
+    public void shouldSetRadioStationForManual() {
+        Radio radio = new Radio(20);
+        radio.setNewCurrentRadioStation(19);
+
+        int expected = 19;
+        int actual = radio.getCurrentRadioStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void shouldSetRadioStationForLessThanMin() {
         Radio radio = new Radio();
         radio.setNewCurrentRadioStation(-1);
@@ -37,6 +48,16 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    public void shouldSetRadioStationForMoreThanMaxForManual() {
+        Radio radio = new Radio(20);
+        radio.setNewCurrentRadioStation(22);
+
+        int expected = 0;
+        int actual = radio.getCurrentRadioStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
 
     @Test
     public void shouldNextCurrentRadioStationForLessThenMax() {
@@ -47,11 +68,29 @@ public class RadioTest {
         int actual = radio.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    public void shouldNextCurrentRadioStationForLessThenMaxForManual() {
+        Radio radio = new Radio(20);
+        radio.setNewCurrentRadioStation(15);
+        radio.nextCurrentRadioStation();
+        int expected = 16;
+        int actual = radio.getCurrentRadioStation();
+        Assertions.assertEquals(expected, actual);
+    }
 
     @Test
     public void shouldNextCurrentRadioStationForMax() {
         Radio radio = new Radio();
         radio.setNewCurrentRadioStation(9);
+        radio.nextCurrentRadioStation();
+        int expected = 0;
+        int actual = radio.getCurrentRadioStation();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void shouldNextCurrentRadioStationForMaxForManual() {
+        Radio radio = new Radio(20);
+        radio.setNewCurrentRadioStation(19);
         radio.nextCurrentRadioStation();
         int expected = 0;
         int actual = radio.getCurrentRadioStation();
@@ -74,6 +113,15 @@ public class RadioTest {
         radio.setNewCurrentRadioStation(0);
         radio.prevCurrentRadioStation();
         int expected = 9;
+        int actual = radio.getCurrentRadioStation();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void shouldPrevCurrentRadioStationForMinForManual() {
+        Radio radio = new Radio(20);
+        radio.setNewCurrentRadioStation(0);
+        radio.prevCurrentRadioStation();
+        int expected = 19;
         int actual = radio.getCurrentRadioStation();
         Assertions.assertEquals(expected, actual);
     }
